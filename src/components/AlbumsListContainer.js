@@ -3,7 +3,9 @@ import * as request from 'superagent'
 import AlbumsList from './AlbumsList'
 
 import { connect } from 'react-redux'
-import { helloWorld } from '../actions/test'
+// import { helloWorld } from '../actions/test'
+import { addAlbum } from '../actions/addAlbum'
+
 
 class AlbumsListContainer extends React.Component {
   state = {}
@@ -25,7 +27,13 @@ class AlbumsListContainer extends React.Component {
       // If we bind action creators using connect...
       // this.props.dispatch is no longer available.
       // to use this we can also correct export at the bottom
-      this.props.helloWorld('Alice', 'Seriously Alice')
+      // this.props.helloWorld('Alice', 'Seriously Alice')
+      
+      this.props.addAlbum(5, 'Enjoying sunshine')
+      this.props.addAlbum(10, 'Having fun in the US')
+
+      
+
   }
 
   render() {
@@ -34,6 +42,14 @@ class AlbumsListContainer extends React.Component {
   }
 }
 
+const mapStateToProps = (state) => {
+  return {
+    albums: state.albums
+  }
+}
+
 // export default connect()(AlbumsListContainer)
 // binding action creators with connect
-export default connect(null, { helloWorld: helloWorld })(AlbumsListContainer)
+// export default connect(null, { helloWorld: helloWorld })(AlbumsListContainer)
+// export default connect(null, { addAlbum: addAlbum })(AlbumsListContainer)
+export default connect(mapStateToProps, { addAlbum })(AlbumsListContainer)
