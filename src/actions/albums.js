@@ -6,8 +6,11 @@
 // export const ADD_ALBUMS = 'ADD_ALBUM' »
 // it would confuses the reducer »
 // diff variables with the very same string
+import * as request from 'superagent'
+
 export const ADD_ALBUM = 'ADD_ALBUM'
 export const SET_ALBUMS = 'SET_ALBUMS'
+
 
 export function addAlbum(id, title) {
   return {
@@ -25,5 +28,14 @@ export function setAlbums(albums) {
     type: SET_ALBUMS,
     // it's already a array!!!!!
     payload: albums
+  }
+}
+
+export function getAlbums() {
+  return function (dispatch) {
+    request('https://jsonplaceholder.typicode.com/albums')
+      .then(response => {
+        dispatch(setAlbums(response.body))
+      })
   }
 }

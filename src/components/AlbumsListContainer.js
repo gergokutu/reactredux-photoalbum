@@ -1,11 +1,13 @@
 import * as React from 'react'
-import * as request from 'superagent'
+// import * as request from 'superagent'
 import AlbumsList from './AlbumsList'
 
 import { connect } from 'react-redux'
 // import { helloWorld } from '../actions/test'
 // import { addAlbum } from '../actions/albums'
 import { setAlbums } from '../actions/albums'
+import { getAlbums } from '../actions/albums'
+
 
 // const sleep = time => new Promise(
 //   resolve => setTimeout(() => resolve(`I waited for ${time} ms`), time)
@@ -15,19 +17,20 @@ class AlbumsListContainer extends React.Component {
   state = {}
 
   componentDidMount() {
-    request('https://jsonplaceholder.typicode.com/albums')
+    // request('https://jsonplaceholder.typicode.com/albums')
       // .then(response => {
       //   const {body} = response
       //   body.map(album => this.props.addAlbum(album.id, album.title))
       // })
-      .then(response => {
-        return this.props.setAlbums(response.body)
-      })
-     
+    // // not needed anymore because of getAlbums()
+    // request('https://jsonplaceholder.typicode.com/albums')
+    //   .then(response => {
+    //     return this.props.setAlbums(response.body)
+    //   })
+    
+    // gets albums, if they are found, .then use setAlbums to put them in Redux
+    this.props.getAlbums()
       
-     
-
-
       // called from test.js
       // helloWorld has to be called as a function
       // better to put it into a separate variable
@@ -67,7 +70,6 @@ class AlbumsListContainer extends React.Component {
     //       title: 'The last album'
     //     }
     //   ]))
-      
   }
 
   render() {
@@ -87,4 +89,5 @@ const mapStateToProps = (state) => {
 // export default connect(null, { helloWorld: helloWorld })(AlbumsListContainer)
 // export default connect(null, { addAlbum: addAlbum })(AlbumsListContainer)
 // export default connect(mapStateToProps, { addAlbum })(AlbumsListContainer)
-export default connect(mapStateToProps, { setAlbums })(AlbumsListContainer)
+// export default connect(mapStateToProps, { setAlbums })(AlbumsListContainer)
+export default connect(mapStateToProps, { setAlbums, getAlbums })(AlbumsListContainer)
